@@ -12,20 +12,27 @@ class CustomDrawer extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.only(left: 32, top: 16),
               children: <Widget>[
-                Image.asset(
-                  "images/aquario.jpg",
-                  height: 100,
-                ),
                 Container(
-                  margin: EdgeInsets.only(bottom: 8),
                   padding: EdgeInsets.all(10),
                   child: Text(
-                    "MENU",
-                    style: TextStyle(fontSize: 30, color: Colors.blueAccent),
+                    "LOGO DO APP",
+                    style: TextStyle(fontSize: 30, color: Colors.blueAccent, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Divider(),
                 DrawerTile("PRODUTOS", () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ProdutoList()));
+                }),
+                DrawerTile("LOCAIS DE ATENDIMENTO", () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ProdutoList()));
+                }),
+                DrawerTile("ALERTAS", () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ProdutoList()));
+                }),
+                DrawerTile("CONFIGURAÇÕES", () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => ProdutoList()));
                 }),
