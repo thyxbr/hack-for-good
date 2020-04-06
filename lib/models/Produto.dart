@@ -1,6 +1,7 @@
 class Produto {
   int _idProduto;
   String _nomeProduto;
+  String _mensagem;
   String _nomeEstabelecimento;
   String _bairro;
   String _lagradouro;
@@ -16,6 +17,12 @@ class Produto {
   }
 
   String get nomeProduto => _nomeProduto;
+
+  String get mensagem => _mensagem;
+
+  set mensagem(String value) {
+    _mensagem = value;
+  }
 
   bool get estoque => _estoque;
 
