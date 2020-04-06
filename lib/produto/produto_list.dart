@@ -91,6 +91,7 @@ class ProdutoList extends StatelessWidget {
     Produto produto = new Produto();
     produto.idProduto = 1;
     produto.nomeProduto = "Alcool em Gel";
+    produto.mensagem = "Estamos sem Alcool em Gel até semana que vem";
     produto.nomeEstabelecimento = "Fármacia Viva Bem";
     produto.bairro = "Centro";
     produto.lagradouro = "Rua jardim das flores";
@@ -103,6 +104,7 @@ class ProdutoList extends StatelessWidget {
     produto = new Produto();
     produto.idProduto = 2;
     produto.nomeProduto = "Papel higienico";
+    produto.mensagem = "Temos 10 unidades de papel higienico em nosso estoque";
     produto.nomeEstabelecimento = "Mercado Boa Compra";
     produto.bairro = "Centro";
     produto.lagradouro = "Rua presidente Kennedy";
@@ -115,6 +117,7 @@ class ProdutoList extends StatelessWidget {
     produto = new Produto();
     produto.idProduto = 3;
     produto.nomeProduto = "Cotonete";
+    produto.mensagem = "Não temos mais estoques de cotonete";
     produto.nomeEstabelecimento = "Mercado Boa Compra";
     produto.bairro = "Centro";
     produto.lagradouro = "Rua presidente Kennedy";
@@ -127,6 +130,7 @@ class ProdutoList extends StatelessWidget {
     produto = new Produto();
     produto.idProduto = 4;
     produto.nomeProduto = "Pão";
+    produto.mensagem = "Pão quentinho somente amanhã";
     produto.nomeEstabelecimento = "Panificadora Central";
     produto.bairro = "Centro";
     produto.lagradouro = "Rua alvorada";
@@ -140,6 +144,7 @@ class ProdutoList extends StatelessWidget {
   Widget itemBuilder(BuildContext context, int index) {
     Produto produto = this.produtos.elementAt(index);
     return InkWell(
+      key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
       onTap: () {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => ProdutoDetalhe(produto)));
@@ -153,6 +158,7 @@ class ProdutoList extends StatelessWidget {
                 margin: EdgeInsets.all(10.0),
                 child: Image.asset(
                   produto.image,
+                  key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
                   height: 75.0,
                 ),
               ),
@@ -166,10 +172,8 @@ class ProdutoList extends StatelessWidget {
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
-                      child: Text("Tem " +
-                          produto.nomeProduto +
-                          " em " +
-                          produto.nomeEstabelecimento),
+                      width: 300,
+                      child: Text(produto.mensagem, textAlign: TextAlign.left,),
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(0.0, .0, .0, 10.0),
