@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hack_for_good/menu/custom_drawer.dart';
 import 'package:hack_for_good/models/Produto.dart';
+import 'package:hack_for_good/produto/produto_detalhe.dart';
 
 class ProdutoList extends StatelessWidget {
   List<Produto> produtos;
@@ -96,6 +97,7 @@ class ProdutoList extends StatelessWidget {
     produto.estoque = false;
     produto.numero = "404";
     produto.telefone = "(99) 99999-9999";
+    produto.image = "images/alcoolgel.png";
     this.produtos.add(produto);
 
     produto = new Produto();
@@ -107,6 +109,7 @@ class ProdutoList extends StatelessWidget {
     produto.estoque = true;
     produto.numero = "201";
     produto.telefone = "(99) 99999-9999";
+    produto.image = "images/papelhigienico.png";
     this.produtos.add(produto);
 
     produto = new Produto();
@@ -118,6 +121,7 @@ class ProdutoList extends StatelessWidget {
     produto.estoque = false;
     produto.numero = "501";
     produto.telefone = "(99) 99999-9999";
+    produto.image = "images/cotonete.png";
     this.produtos.add(produto);
 
     produto = new Produto();
@@ -129,6 +133,7 @@ class ProdutoList extends StatelessWidget {
     produto.estoque = false;
     produto.numero = "204";
     produto.telefone = "(99) 99999-9999";
+    produto.image = "images/pao.png";
     this.produtos.add(produto);
   }
 
@@ -137,7 +142,7 @@ class ProdutoList extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ProdutoList()));
+            context, MaterialPageRoute(builder: (context) => ProdutoDetalhe(produto)));
       },
       child: Container(
           margin: EdgeInsets.fromLTRB(0.0, 5.0, 5.0, 10.0),
@@ -147,7 +152,7 @@ class ProdutoList extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(10.0),
                 child: Image.asset(
-                  buscaImagem(produto.idProduto),
+                  produto.image,
                   height: 75.0,
                 ),
               ),
@@ -176,20 +181,6 @@ class ProdutoList extends StatelessWidget {
             ],
           )),
     );
-  }
-
-  String buscaImagem(int idProduto) {
-    String imagem = "";
-    if (idProduto == 1) {
-      imagem = "images/alcoolgel.png";
-    } else if (idProduto == 2) {
-      imagem = "images/papelhigienico.png";
-    } else if (idProduto == 3) {
-      imagem = "images/cotonete.png";
-    } else if (idProduto == 4) {
-      imagem = "images/pao.png";
-    }
-    return imagem;
   }
 
   void loadDropMenu() {

@@ -7,6 +7,7 @@ class Produto {
   String _numero;
   String _telefone;
   bool _estoque;
+  String image;
 
   int get idProduto => _idProduto;
 
