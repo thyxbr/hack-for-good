@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hack_for_good/menu/custom_drawer.dart';
 import 'package:hack_for_good/models/Produto.dart';
+import 'package:hack_for_good/produto/produto_cadastro.dart';
 import 'package:hack_for_good/produto/produto_detalhe.dart';
 
 class ProdutoList extends StatelessWidget {
@@ -26,7 +27,7 @@ class ProdutoList extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ProdutoList()));
+                MaterialPageRoute(builder: (context) => ProdutoCadastro()));
           },
           child: Icon(Icons.add),
           backgroundColor: Colors.blueAccent,
