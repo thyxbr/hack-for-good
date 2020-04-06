@@ -1,16 +1,206 @@
 import 'package:flutter/material.dart';
 import 'package:hack_for_good/menu/custom_drawer.dart';
+import 'package:hack_for_good/models/Produto.dart';
 
 class ProdutoList extends StatelessWidget {
+  List<Produto> produtos;
+  List<DropdownMenuItem<int>> listDropMenu = [];
+  int itemSelecionado = 1;
+
+  ProdutoList() {
+    this.produtos = new List();
+    buscaProdutos();
+    loadDropMenu();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: CustomDrawer(),
-      appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        title: Text("PRODUTOS"),
-        centerTitle: true,
-      ),
+        drawer: CustomDrawer(),
+        appBar: AppBar(
+          backgroundColor: Colors.blueAccent,
+          title: Text("PRODUTOS"),
+          centerTitle: true,
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ProdutoList()));
+          },
+          child: Icon(Icons.add),
+          backgroundColor: Colors.blueAccent,
+        ),
+        body: Column(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.all(5.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    child: Expanded(
+                        flex: 4,
+                        child: Padding(
+                          padding: EdgeInsets.all(5.0),
+                          child: TextField(
+                            decoration: InputDecoration(
+                                labelText: "Procurar",
+                                labelStyle:
+                                    TextStyle(color: Colors.blueAccent)),
+                            style: TextStyle(color: Colors.blueAccent),
+                          ),
+                        )),
+                  ),
+                  Container(
+                      child: Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(5, 25, 5, 0),
+                            child: DropdownButton(
+                              items: listDropMenu,
+                              value: itemSelecionado,
+                              onChanged: (value) {
+                                this.itemSelecionado = value;
+                              },
+                              hint: Text(
+                                "Estoque",
+                                style: TextStyle(color: Colors.blueAccent),
+                              ),
+                              style: TextStyle(color: Colors.blueAccent),
+                            ),
+                          ))),
+                ],
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemBuilder: itemBuilder,
+                itemCount: this.produtos.length,
+                padding: EdgeInsets.only(top: 10.0),
+              ),
+            )
+          ],
+        ));
+  }
+
+  Future<void> buscaProdutos() {
+    this.produtos.clear();
+
+    Produto produto = new Produto();
+    produto.idProduto = 1;
+    produto.nomeProduto = "Alcool em Gel";
+    produto.nomeEstabelecimento = "Fármacia Viva Bem";
+    produto.bairro = "Centro";
+    produto.lagradouro = "Rua jardim das flores";
+    produto.estoque = false;
+    produto.numero = "404";
+    produto.telefone = "(99) 99999-9999";
+    this.produtos.add(produto);
+
+    produto = new Produto();
+    produto.idProduto = 2;
+    produto.nomeProduto = "Papel higienico";
+    produto.nomeEstabelecimento = "Mercado Boa Compra";
+    produto.bairro = "Centro";
+    produto.lagradouro = "Rua presidente Kennedy";
+    produto.estoque = true;
+    produto.numero = "201";
+    produto.telefone = "(99) 99999-9999";
+    this.produtos.add(produto);
+
+    produto = new Produto();
+    produto.idProduto = 3;
+    produto.nomeProduto = "Cotonete";
+    produto.nomeEstabelecimento = "Mercado Boa Compra";
+    produto.bairro = "Centro";
+    produto.lagradouro = "Rua presidente Kennedy";
+    produto.estoque = false;
+    produto.numero = "501";
+    produto.telefone = "(99) 99999-9999";
+    this.produtos.add(produto);
+
+    produto = new Produto();
+    produto.idProduto = 4;
+    produto.nomeProduto = "Pão";
+    produto.nomeEstabelecimento = "Panificadora Central";
+    produto.bairro = "Centro";
+    produto.lagradouro = "Rua alvorada";
+    produto.estoque = false;
+    produto.numero = "204";
+    produto.telefone = "(99) 99999-9999";
+    this.produtos.add(produto);
+  }
+
+  Widget itemBuilder(BuildContext context, int index) {
+    Produto produto = this.produtos.elementAt(index);
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ProdutoList()));
+      },
+      child: Container(
+          margin: EdgeInsets.fromLTRB(0.0, 5.0, 5.0, 10.0),
+          color: Colors.white,
+          child: Row(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.all(10.0),
+                child: Image.asset(
+                  buscaImagem(produto.idProduto),
+                  height: 75.0,
+                ),
+              ),
+              Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+                      child: Text("Postado por Felipe Zanella"),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+                      child: Text("Tem " +
+                          produto.nomeProduto +
+                          " em " +
+                          produto.nomeEstabelecimento),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0.0, .0, .0, 10.0),
+                      child: Text("22:58 05/04/2020"),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )),
     );
+  }
+
+  String buscaImagem(int idProduto) {
+    String imagem = "";
+    if (idProduto == 1) {
+      imagem = "images/alcoolgel.png";
+    } else if (idProduto == 2) {
+      imagem = "images/papelhigienico.png";
+    } else if (idProduto == 3) {
+      imagem = "images/cotonete.png";
+    } else if (idProduto == 4) {
+      imagem = "images/pao.png";
+    }
+    return imagem;
+  }
+
+  void loadDropMenu() {
+    this.listDropMenu.clear();
+    this.listDropMenu.add(DropdownMenuItem(
+          child: Text("Com estoque"),
+          value: 0,
+        ));
+    this.listDropMenu.add(DropdownMenuItem(
+          child: Text("Sem estoque"),
+          value: 1,
+        ));
   }
 }
